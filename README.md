@@ -1,2 +1,3 @@
 # dotfiles
-Public repo hosting @francisfuzz's dotfiles
+
+@francisfuzz's dotfiles
