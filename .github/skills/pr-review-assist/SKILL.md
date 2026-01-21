@@ -102,3 +102,8 @@ See [review-checklist.md](references/review-checklist.md) for detailed verificat
 
 "Review this PR:  https://github.com/org/repo/pull/123"
 "Help me review #1642"
+
+## Inspiration
+
+- https://francisfuzz.com/posts/2025/06/02/how-i-approach-code-review/
+- https://github.blog/developer-skills/github/how-to-review-code-effectively-a-github-staff-engineers-philosophy/
