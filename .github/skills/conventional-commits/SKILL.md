@@ -4,7 +4,7 @@ description: Generate properly formatted Conventional Commits messages with Clau
 allowed-tools: Bash, Read, Grep
 ---
 
-# Conventional Commits for emoji_gen
+# Conventional Commits
 
 This Skill helps create commit messages that follow the Conventional Commits specification and include the required Claude Code footer.
 
