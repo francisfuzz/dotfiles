@@ -5,7 +5,7 @@ Given the following flow, explore the different prompts, skills, and commands th
 ```
 Articulation → Discovery → Explain → Plan → Edit → Review → Refactor → Agent → Monitor → Learn
      ↑                                                                                      |
-     └────────────────────── reflection loop ──────────────────────────────────────────────┘
+     └────────────────────── reflection loop ───────────────────────────────────────────────┘
 ```
 
 ## Compacted Context
