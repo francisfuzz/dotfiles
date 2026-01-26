@@ -18,18 +18,19 @@ This repository contains personal dotfiles and agent/skill configurations for Gi
 All git-tracked configuration files live here:
 ```
 .agents/
-├── commands/              # Claude command templates
-│   ├── engineering-brief.md
-│   ├── interview.md
-│   ├── venture-feasability-brief.md
-│   └── start-work.md
+├── commands/              # Claude command references
+│   ├── start-work.md      # Reference to start-work skill
+│   └── README.md          # Commands documentation
 ├── prompts/              # Prompt templates
 │   └── start-work.prompt.md
 └── skills/               # Reusable skills
     ├── conventional-commits/
+    ├── engineering-brief/
     ├── handoff-primitive/
+    ├── interview/
     ├── pr-review-assist/
-    └── start-work/
+    ├── start-work/
+    └── venture-feasibility/
 ```
 
 ### Symlink Mappings
@@ -62,9 +63,12 @@ Each skill directory contains:
 
 ### Common Skills
 - **conventional-commits** – Generate properly formatted commit messages
+- **engineering-brief** – Define constraints, risks, and success metrics before building
 - **handoff-primitive** – Preserve state between sessions
+- **interview** – Conduct comprehensive discovery interviews with Socratic questioning
 - **pr-review-assist** – Review code changes intelligently
 - **start-work** – Begin work on GitHub issues with discovery and TDD
+- **venture-feasibility** – Reality-check business ideas with math before investing time
 
 ### Using Skills
 Skills are available to Claude and Copilot CLI. Load them with:
@@ -74,35 +78,9 @@ Skills are available to Claude and Copilot CLI. Load them with:
 
 ## Working with Commands
 
-### Claude Commands
-Located in `.agents/commands/`, these are templates for structured AI interaction:
+Commands have been primarily migrated to skills. See `.agents/commands/README.md` for documentation.
 
-#### engineering-brief.md
-Define constraints, risks, and success metrics before building:
-```
-# Copy and fill out:
-cp .agents/commands/engineering-brief.md my-project-brief.md
-# Share with Claude and ask for validation
-```
-
-#### interview.md
-Turn vague ideas into complete project specifications:
-```
-# Use Socratic questioning to refine requirements
-# Best used in conjunction with a filled-out brief
-```
-
-#### venture-feasability-brief.md
-Reality-check business ideas with math before investing time:
-```
-# Define costs, timeline, and go/no-go decision criteria
-```
-
-#### start-work.md
-Begin work on a new task with proper setup and TDD:
-```
-# See .agents/prompts/start-work.prompt.md for the full prompt
-```
+The `start-work.md` file serves as a reference to the start-work skill.
 
 ## Development Workflow
 
