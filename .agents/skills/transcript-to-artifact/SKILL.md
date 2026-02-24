@@ -97,5 +97,5 @@ Produces:
 ## Example Usage
 
 "Process this meeting transcript and extract action items"
-"Turn this Zoom transcript into meeting notes"
-"Extract artifacts from my 1:1 with @jessmargz"
+"Turn this Zoom/Teams/Meet transcript into meeting notes"
+"Extract artifacts from my 1:1 with @monalisa"
