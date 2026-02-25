@@ -5,14 +5,7 @@ description: Define constraints, risks, and success metrics before building. Use
 
 # Engineering Project Brief
 
-Use this skill to establish clear constraints, goals, and risk assessment before starting development. Fill this out cold, then share with Claude or your team to validate feasibility and uncover hidden assumptions.
-
-## When to Use
-
-- **Starting a new project** – Lock in constraints and success metrics
-- **Major refactoring** – Define scope and risk tolerance upfront
-- **Scaling work** – Document what scaling constraints exist
-- **Team alignment** – Get shared understanding of what you're building
+Establish clear constraints, goals, and risk assessment before starting development. Fill out cold, then validate feasibility and uncover hidden assumptions.
 
 ## The Brief
 
@@ -23,57 +16,47 @@ Use this skill to establish clear constraints, goals, and risk assessment before
 - **Maintenance burden**: [acceptable/minimal]
 
 ### Goal
-- **Success metric**: [specific, measurable outcome] (e.g., "deploy and serve 1k users" vs "reduce latency by 30%")
-- **Business impact**: [What does this enable? Who benefits?]
+- **Success metric**: specific, measurable outcome (e.g., "deploy and serve 1k users" or "reduce latency by 30%")
+- **Business impact**: what this enables and who benefits
 
 ### Technical Unknowns
 - [Uncertainty 1]
 - [Uncertainty 2]
-- [Any experimental or novel parts of the design]
+- [Any experimental or novel design elements]
 
 ### Risk Assessment
-- **Single point of failure**: [What breaks this completely?]
-- **Scaling constraint**: [What stops it from growing beyond X?]
-- **Dependency risk**: [What if X library/service fails?]
+- **Single point of failure**: what breaks this completely?
+- **Scaling constraint**: what stops growth beyond X?
+- **Dependency risk**: what if X library/service fails?
 
-## How to Use
+## Workflow
 
-1. **Fill it out alone** – Write answers without team input first
-2. **Review with Claude** – Paste into Claude and ask: "Does this brief make sense? What am I missing?"
-3. **Align with team** – Share outcomes and get feedback
-4. **Refine** – Update based on feedback, especially around risks
-5. **Use as reference** – Keep this brief updated as project evolves
+1. **Fill it out alone** — write answers without team input first
+2. **Review with Claude** — "Does this brief make sense? What am I missing?"
+3. **Align with team** — share outcomes and get feedback
+4. **Refine** — update based on feedback, especially around risks
+5. **Keep as reference** — update as the project evolves
 
-## Example: Web Application
+## Output
 
-```
-Constraints:
-- Timeline: 4 weeks
-- Team size: 2 engineers
-- Technical debt tolerance: low (shipping MVP)
-- Maintenance burden: minimal (will hand off)
+```markdown
+## Engineering Brief: <project>
 
-Goal:
-- Success metric: MVP deployed with 100 users signed up, <2s page load
-- Business impact: Validate market demand before Series A
+### Constraints
+[filled from brief]
 
-Technical Unknowns:
-- Can we batch process payments efficiently?
-- Will our current hosting handle spike traffic?
+### Goal & Success Metric
+[specific measurable outcome]
 
-Risk Assessment:
-- Single point of failure: Payment processor downtime (0.1% SLA)
-- Scaling constraint: Database connections at 1k concurrent users
-- Dependency risk: If email service fails, no password resets
+### Risks
+[top risks with mitigation approach]
+
+### Unknowns
+[key uncertainties and how to resolve them]
 ```
 
 ## Next Steps
 
-After completing the brief:
-- If you want deep discovery: Use the **interview** skill for Socratic questioning
-- If you're ready to build: Create a detailed specification using your brief as context
-- If it's business-focused: Use **venture-feasibility** instead to validate ROI
-
----
-
-**Pro tip**: The more specific your metrics, the clearer your trade-offs. "We need it fast" is hard to optimize for; "< 2s load time at 1k concurrent users" is crystal clear.
+- Deep discovery needed → use **interview** skill for Socratic questioning
+- Ready to build → create a detailed specification using this brief as context
+- Business-focused → use **venture-feasibility** to validate ROI instead
