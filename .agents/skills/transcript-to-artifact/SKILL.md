@@ -5,7 +5,7 @@ description: Transform meeting transcripts into structured artifact (TL;DR, deci
 
 # Transcript to Artifact
 
-Extracts structured, reusable artifacts from raw meeting transcripts.
+Extract structured, reusable artifacts from raw meeting transcripts.
 
 ## Prerequisites
 
@@ -15,23 +15,17 @@ Extracts structured, reusable artifacts from raw meeting transcripts.
 ## Steps
 
 ### 1. Receive Transcript
-
-Accept transcript as:
-- Pasted text in conversation
-- File path to `Transcripts/*.txt` or `Transcripts/*.md`
+Accept as pasted text or file path (`Transcripts/*.txt` or `Transcripts/*.md`).
 
 ### 2. Extract Structured Content
 
-Parse the transcript and extract:
-
-| Artifact | Description |
-|----------|-------------|
-| TL;DR | 2-3 sentence summary |
-| Key Discussion Points | Major topics with context |
-| Decisions | Conclusions reached, agreements made |
-| Action Items | Tasks with owners and deadlines |
-| Follow-ups | Next steps, future meetings |
-| References | Links, resources, tools mentioned |
+Parse and extract:
+- **TL;DR**: 2-3 sentence summary
+- **Key Discussion Points**: Major topics with context
+- **Decisions**: Conclusions reached, agreements made
+- **Action Items**: Tasks with owners and deadlines
+- **Follow-ups**: Next steps, future meetings
+- **References**: Links, resources, tools mentioned
 
 See [extraction-template.md](references/extraction-template.md) for the full prompt template.
 
@@ -39,7 +33,6 @@ See [extraction-template.md](references/extraction-template.md) for the full pro
 
 Create file: `Daily Projects/YYYY-MM-DD/NN-meeting-<topic>.md`
 
-Structure:
 ```markdown
 # Meeting Transcript - <Topic>
 
@@ -66,36 +59,18 @@ Structure:
 
 ### 4. Identify Propagation Targets
 
-Flag content for downstream destinations:
-
-| Content Type | Destination |
-|--------------|-------------|
-| Wins/ships | `Snippets/` |
-| Risks/blockers | `Executive Summaries/` |
-| Project decisions | `Projects/<slug>/` |
-| Weekly priorities | `Weekly Notes/` |
+- Wins/ships → `Snippets/`
+- Risks/blockers → `Executive Summaries/`
+- Project decisions → `Projects/<slug>/`
+- Weekly priorities → `Weekly Notes/`
 
 ### 5. Link and Archive
 
-- Add `[[wikilinks]]` connecting to related notes
-- If transcript file exists, note: "Archive to `Archive/` after review"
-
-## Output
-
-Produces:
-- Structured meeting note in `Daily Projects/YYYY-MM-DD/`
-- List of propagation suggestions
-- Archive recommendation for raw transcript
+Add `[[wikilinks]]` to related notes. If raw transcript exists, note: "Archive to `Archive/` after review."
 
 ## Verification
 
 - [ ] TL;DR is 2-3 sentences max
 - [ ] All action items have owners (@handle format)
 - [ ] Attendees listed at bottom
-- [ ] File saved with correct naming: `NN-meeting-<topic>.md`
-
-## Example Usage
-
-"Process this meeting transcript and extract action items"
-"Turn this Zoom/Teams/Meet transcript into meeting notes"
-"Extract artifacts from my 1:1 with @monalisa"
+- [ ] File saved as `NN-meeting-<topic>.md`

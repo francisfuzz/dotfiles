@@ -29,16 +29,15 @@ allowed-tools: Bash, Read, Grep
 
 ## Rules
 
-- Imperative mood: "add" not "added", "fix" not "fixed"
+- Imperative mood: "add" not "added"
 - Summary under 50 characters
-- Breaking changes: use `!` after type/scope or `BREAKING CHANGE:` footer
-- Explain **what** and **why** in body, not **how**
+- Breaking changes: `!` after type/scope or `BREAKING CHANGE:` footer
+- Body explains **what** and **why**, not **how**
 - Reference issue numbers in body if applicable
 
 ## Required Footer
 
-**Always include:**
-
+Always include:
 ```
 🤖 Generated with [Claude Code](https://claude.com/claude-code)
 ```
@@ -46,7 +45,7 @@ allowed-tools: Bash, Read, Grep
 ## Workflow
 
 1. Run `git diff --staged` (or `git diff`) to understand changes
-2. Choose type, optional scope, and write a concise description
+2. Choose type, optional scope, write concise description
 3. Use heredoc for multi-line commits:
 
 ```bash
@@ -60,9 +59,9 @@ EOF
 )"
 ```
 
-## DO NOT
+## Do Not
 
 - Forget the Claude Code footer
-- Use past tense descriptions ("added", "fixed")
+- Use past tense ("added", "fixed")
 - Write vague descriptions ("update stuff", "fix bug")
 - Skip body when breaking changes need explanation
