@@ -55,7 +55,6 @@ type(scope): description
 
 Body explaining what and why.
 
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
 EOF
 )"
 ```
