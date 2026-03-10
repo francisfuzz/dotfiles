@@ -1,7 +1,6 @@
 ---
 name: pr-review-assist
 description:  Prepare structured PR reviews using a three-phase framework (Context, Analysis, Validation). Use when reviewing pull requests, when user shares a PR URL, or mentions "review PR", "code review", or "check this PR".
-allowed-tools:  Bash(gh: *) Read
 ---
 
 # PR Review Assist
