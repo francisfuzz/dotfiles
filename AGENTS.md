@@ -4,25 +4,20 @@ Configuration and guidance for AI coding agents working with this dotfiles repos
 
 ## Project Overview
 
-This repository contains personal dotfiles and agent/skill configurations for GitHub Copilot CLI and Claude AI workflows. The project consolidates configuration into a single canonical `.agents/` directory with backward-compatible symlinks.
+This repository contains personal dotfiles and agent/skill configurations for GitHub Copilot CLI and Claude AI workflows. The project consolidates active configuration into a single canonical `.agents/` directory with backward-compatible symlinks.
 
 ### Key Components
-- **`.agents/commands/`** – Claude command templates for specification and planning
-- **`.agents/prompts/`** – Prompt templates for AI-guided workflows
 - **`.agents/skills/`** – Reusable skills and automation capabilities
-- **`.claude/` & `.github/`** – Symbolic links pointing to `.agents/` for tool compatibility
+- **`archive/commands/`** – Archived Claude command templates
+- **`archive/prompts/`** – Archived prompt templates
+- **`.claude/` & `.github/`** – Symbolic links for tool compatibility
 
 ## Directory Structure Guide
 
 ### Canonical Configuration (`.agents/`)
-All git-tracked configuration files live here:
+Active git-tracked configuration files live here:
 ```
 .agents/
-├── commands/              # Claude command references
-│   ├── start-work.md      # Reference to start-work skill
-│   └── README.md          # Commands documentation
-├── prompts/              # Prompt templates
-│   └── start-work.prompt.md
 └── skills/               # Reusable skills
     ├── conventional-commits/
     ├── engineering-brief/
@@ -33,11 +28,22 @@ All git-tracked configuration files live here:
     └── venture-feasibility/
 ```
 
+### Archived Configuration (`archive/`)
+Previously active configuration that has been retired:
+```
+archive/
+├── commands/              # Archived Claude command references
+│   ├── start-work.md
+│   └── README.md
+└── prompts/              # Archived prompt templates
+    └── start-work.prompt.md
+```
+
 ### Symlink Mappings
 Local tools expect configurations in `.claude/` and `.github/`:
-- `.claude/commands` → `../.agents/commands` (symlink)
+- `.claude/commands` → `../archive/commands` (symlink)
 - `.claude/skills` → `../.agents/skills` (symlink)
-- `.github/prompts` → `../.agents/prompts` (symlink)
+- `.github/prompts` → `../archive/prompts` (symlink)
 - `.github/skills` → `../.agents/skills` (symlink)
 
 ### Local Runtime Data (`.claude/`)
@@ -78,17 +84,14 @@ Skills are available to Claude and Copilot CLI. Load them with:
 
 ## Working with Commands
 
-Commands have been primarily migrated to skills. See `.agents/commands/README.md` for documentation.
-
-The `start-work.md` file serves as a reference to the start-work skill.
+Commands have been archived to `archive/commands/`. See `archive/commands/README.md` for historical documentation.
 
 ## Development Workflow
 
 ### Before Starting a Task
 1. Understand the project structure and existing patterns
 2. Check `.agents/skills/` for relevant automation capabilities
-3. Review `.agents/commands/README.md` for specification templates
-4. For new issues: Run `start-work` skill or prompt
+3. For new issues: Run `start-work` skill or prompt
 
 ### Git and Version Control
 - Use `conventional-commits` skill to generate commit messages
@@ -106,17 +109,18 @@ The `start-work.md` file serves as a reference to the start-work skill.
 This repository uses symlinks for backward compatibility. Git correctly handles symlinks on macOS and Linux.
 
 ### File Tracking
-- Git tracks files in `.agents/` (the canonical location)
+- Git tracks files in `.agents/` (the canonical location for active config)
+- Git tracks files in `archive/` (for archived config)
 - Git tracks symlinks in `.claude/` and `.github/`
 - Local runtime data in `.claude/` is not tracked (see `.gitignore` or system defaults)
 
 ### Making Changes
-When updating configuration:
+When updating active configuration:
 1. Edit files in `.agents/` (the canonical source)
 2. Symlinks in `.claude/` and `.github/` automatically reflect changes
 3. Commit changes at the `.agents/` location
 
-## Adding New Skills or Commands
+## Adding New Skills
 
 ### Adding a New Skill
 1. Create a directory: `.agents/skills/your-skill-name/`
@@ -131,12 +135,6 @@ When updating configuration:
    ```
 3. Add supporting files or references as needed
 4. Commit to `.agents/skills/`
-
-### Adding a New Command
-1. Create a markdown file: `.agents/commands/your-command.md`
-2. Document the purpose and usage clearly
-3. Include examples and templates
-4. Commit to `.agents/commands/`
 
 ## Testing and Validation
 
@@ -154,13 +152,13 @@ When updating configuration:
 
 - **GitHub Copilot CLI Docs:** https://docs.github.com/copilot/concepts/agents/about-copilot-cli
 - **AGENTS.md Format:** https://agents.md/
-- **Claude Commands Guide:** See `.agents/commands/README.md`
+- **Claude Commands Guide:** See `archive/commands/README.md`
 - **Skills Reference:** See `.agents/skills/*/SKILL.md`
 
 ## Repository Patterns
 
 ### Single Source of Truth
-All configuration is defined once in `.agents/` to avoid duplication and maintenance burden.
+Active configuration is defined once in `.agents/skills/` to avoid duplication and maintenance burden. Archived content lives in `archive/`.
 
 ### Backward Compatibility
 Symlinks in `.claude/` and `.github/` maintain compatibility with tools expecting those paths.
@@ -194,10 +192,10 @@ cat .agents/skills/start-work/SKILL.md
 ## Notes for Agent Contributors
 
 - This repository is primarily for personal use but welcomes improvements
-- When modifying skills or commands, ensure documentation is clear and complete
+- When modifying skills, ensure documentation is clear and complete
 - Preserve git history through careful use of `git mv`
 - Test symlink resolution across macOS, Linux, and Windows if possible
-- Keep the single-source-of-truth principle: edit in `.agents/`, never duplicate
+- Keep the single-source-of-truth principle: active config lives in `.agents/skills/`
 
 ## Security Considerations
 
