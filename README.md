@@ -8,15 +8,18 @@ This repository uses a consolidated configuration approach:
 
 ### `.agents/` – Canonical Configuration
 The single source of truth for all agent/skill configurations:
-- **commands/** – Claude commands (engineering-brief, interview, etc.)
-- **prompts/** – Prompt templates (start-work, etc.)
 - **skills/** – Skills for automation (start-work, conventional-commits, pr-review-assist, handoff-primitive)
 
+### `archive/` – Archived Configuration
+Previously active configuration that has been retired:
+- **commands/** – Claude commands (engineering-brief, interview, etc.)
+- **prompts/** – Prompt templates (start-work, etc.)
+
 ### `.claude/` & `.github/`
-Backward-compatible symbolic links pointing to `.agents/`:
-- `.claude/commands` → `../.agents/commands`
+Backward-compatible symbolic links:
+- `.claude/commands` → `../archive/commands`
 - `.claude/skills` → `../.agents/skills`
-- `.github/prompts` → `../.agents/prompts`
+- `.github/prompts` → `../archive/prompts`
 - `.github/skills` → `../.agents/skills`
 
 This allows tools expecting the original paths to work seamlessly while maintaining a single location for configuration updates.
