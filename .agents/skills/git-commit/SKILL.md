@@ -5,19 +5,20 @@ argument-hint: [issue-url | issue-id]
 allowed-tools: Bash, Read, Grep
 ---
 
-# Conventional Commits
+# Git Commit
 
 ## Context
 
 - Current status: !`git status`
-- Current diff: !`git diff HEAD`
+- Staged diff: !`git diff --staged`
+- Unstaged diff: !`git diff`
 - Current branch: !`git branch --show-current`
 
 ## Critical Rules
 
 - **Always ensure you're on a feature branch** — never commit directly to main
 - **Always sign-off commits** with git config user.name and user.email
-- **Always run tests and lint** before creating a commit
+- **Always run tests and lint** before creating a commit — if no test/lint command is known, ask the user
 - **NEVER git commit or git push without explicit user approval** — always ask first
 - **Only add co-authors when the user explicitly specifies them**
 
@@ -70,7 +71,7 @@ Prose explanation of the motivation and who is affected. No bullet points.
 1. Run `git diff --staged` (or `git diff`) to understand changes
 2. Run tests and linting to confirm nothing is broken
 3. Choose type, optional scope, and write a concise description
-4. If `$ARGUMENTS` is provided, add `Relates to $ARGUMENTS` after the commit title
+4. If `$ARGUMENTS` is provided, add `Relates to $ARGUMENTS` after the body
 5. Use heredoc for multi-line commits:
 
 ```bash
