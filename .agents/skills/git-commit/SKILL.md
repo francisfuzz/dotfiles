@@ -1,6 +1,6 @@
 ---
-name: conventional-commits
-description: Generate properly formatted Conventional Commits messages. Use when creating git commits, writing commit messages, or the user mentions "commit", "git commit", or wants to save changes.
+name: git-commit
+description: Create meaningful git commit messages following the Conventional Commits specification. Use when creating git commits, writing commit messages, or the user mentions "commit", "git commit", or wants to save changes.
 argument-hint: [issue-url | issue-id]
 allowed-tools: Bash, Read, Grep
 ---
