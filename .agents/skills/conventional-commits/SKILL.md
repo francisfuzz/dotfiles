@@ -19,7 +19,7 @@ allowed-tools: Bash, Read, Grep
 - **Always sign-off commits** with git config user.name and user.email
 - **Always run tests and lint** before creating a commit
 - **NEVER git commit or git push without explicit user approval** — always ask first
-- **NEVER add Claude or any other AI agent as a co-author**
+- **Only add co-authors when the user explicitly specifies them**
 
 ## Format
 
@@ -58,7 +58,7 @@ Use three headings when the commit warrants a body:
 Prose explanation of what changed. No bullet points.
 
 ### Why
-Prose explanation of the motivation. No bullet points.
+Prose explanation of the motivation and who is affected. No bullet points.
 
 ### Notes
 - Non-obvious implications, risks, and trade-offs
@@ -83,7 +83,7 @@ Explanation of what changed.
 
 ## Why
 
-Explanation of motivation.
+Explanation of motivation and who is affected.
 
 ## Notes
 
@@ -96,7 +96,7 @@ EOF
 
 ## DO NOT
 
-- Add any AI agent as co-author or in commit footers
+- Add co-authors unless the user explicitly requests it
 - Use past tense descriptions ("added", "fixed")
 - Write vague descriptions ("update stuff", "fix bug")
 - Skip body when breaking changes need explanation
