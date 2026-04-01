@@ -11,7 +11,6 @@ allowed-tools: Bash, Read, Grep
 
 - Current status: !`git status`
 - Staged diff: !`git diff --staged`
-- Unstaged diff: !`git diff`
 - Current branch: !`git branch --show-current`
 
 ## Critical Rules
