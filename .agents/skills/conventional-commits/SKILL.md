@@ -1,19 +1,35 @@
 ---
 name: conventional-commits
-description: Generate properly formatted Conventional Commits messages with Claude Code footer. Use when creating git commits, writing commit messages, or the user mentions "commit", "git commit", or wants to save changes.
+description: Generate properly formatted Conventional Commits messages. Use when creating git commits, writing commit messages, or the user mentions "commit", "git commit", or wants to save changes.
+argument-hint: [issue-url | issue-id]
 allowed-tools: Bash, Read, Grep
 ---
 
 # Conventional Commits
+
+## Context
+
+- Current status: !`git status`
+- Current diff: !`git diff HEAD`
+- Current branch: !`git branch --show-current`
+
+## Critical Rules
+
+- **Always ensure you're on a feature branch** — never commit directly to main
+- **Always sign-off commits** with git config user.name and user.email
+- **Always run tests and lint** before creating a commit
+- **NEVER git commit or git push without explicit user approval** — always ask first
+- **NEVER add Claude or any other AI agent as a co-author**
 
 ## Format
 
 ```
 <type>[optional scope][optional !]: <description>
 
-[optional body]
+[optional body with What, Why, Notes]
 
-[required footer]
+[optional Relates to <issue>]
+Signed-off-by: <user.name> <user.email>
 ```
 
 ## Types
@@ -32,36 +48,57 @@ allowed-tools: Bash, Read, Grep
 - Imperative mood: "add" not "added", "fix" not "fixed"
 - Summary under 50 characters
 - Breaking changes: use `!` after type/scope or `BREAKING CHANGE:` footer
-- Explain **what** and **why** in body, not **how**
-- Reference issue numbers in body if applicable
+- Reference issue numbers if applicable
 
-## Required Footer
+## Body Structure
 
-**Always include:**
+Use three headings when the commit warrants a body:
 
-```
-🤖 Generated with [Claude Code](https://claude.com/claude-code)
-```
+### What
+Prose explanation of what changed. No bullet points.
+
+### Why
+Prose explanation of the motivation. No bullet points.
+
+### Notes
+- Non-obvious implications, risks, and trade-offs
+- Things reviewers should watch for that aren't apparent from the diff
+- Avoid stating obvious facts or repeating What/Why
 
 ## Workflow
 
 1. Run `git diff --staged` (or `git diff`) to understand changes
-2. Choose type, optional scope, and write a concise description
-3. Use heredoc for multi-line commits:
+2. Run tests and linting to confirm nothing is broken
+3. Choose type, optional scope, and write a concise description
+4. If `$ARGUMENTS` is provided, add `Relates to $ARGUMENTS` after the commit title
+5. Use heredoc for multi-line commits:
 
 ```bash
-git commit -m "$(cat <<'EOF'
+git commit --signoff -m "$(cat <<'EOF'
 type(scope): description
 
-Body explaining what and why.
+## What
 
+Explanation of what changed.
+
+## Why
+
+Explanation of motivation.
+
+## Notes
+
+- Non-obvious detail for reviewers
+
+Relates to <issue-url>
 EOF
 )"
 ```
 
 ## DO NOT
 
-- Forget the Claude Code footer
+- Add any AI agent as co-author or in commit footers
 - Use past tense descriptions ("added", "fixed")
 - Write vague descriptions ("update stuff", "fix bug")
 - Skip body when breaking changes need explanation
+- Commit directly to main branch
+- Commit or push without user approval
