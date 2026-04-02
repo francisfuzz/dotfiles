@@ -1,0 +1,20 @@
+# Claude local runtime data
+.claude/cache/
+.claude/commands-env/
+.claude/debug/
+.claude/file-history/
+.claude/history.jsonl
+.claude/plugins/
+.claude/projects/
+.claude/settings.json
+.claude/shell-snapshots/
+.claude/stats-cache.json
+.claude/statsig/
+.claude/telemetry/
+.claude/todos/
+
+# OS
+.DS_Store
+*.swp
+*.swo
+*~
