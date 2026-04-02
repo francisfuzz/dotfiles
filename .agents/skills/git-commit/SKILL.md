@@ -1,6 +1,6 @@
 ---
 name: git-commit
-description: Create meaningful git commit messages following the Conventional Commits specification. Use when creating git commits, writing commit messages, or the user mentions "commit", "git commit", or wants to save changes.
+description: Generate Conventional Commits-formatted git commit messages from staged changes. Use when the user asks to commit, writes a commit message, or runs git commit.
 argument-hint: [issue-url | issue-id]
 allowed-tools: Bash, Read, Grep
 ---
@@ -13,13 +13,24 @@ allowed-tools: Bash, Read, Grep
 - Staged diff: !`git diff --staged`
 - Current branch: !`git branch --show-current`
 
-## Critical Rules
+## Rules
+
+Safety rules come first, then formatting rules.
+
+### Safety
 
 - **Always ensure you're on a feature branch** — never commit directly to main
 - **Always sign-off commits** with git config user.name and user.email
 - **Always run tests and lint** before creating a commit — if no test/lint command is known, ask the user
 - **NEVER git commit or git push without explicit user approval** — always ask first
 - **Only add co-authors when the user explicitly specifies them**
+
+### Formatting
+
+- Imperative mood: "add" not "added", "fix" not "fixed"
+- Summary under 50 characters
+- Breaking changes: use `!` after type/scope or `BREAKING CHANGE:` footer
+- Reference issue numbers if applicable
 
 ## Format
 
@@ -43,13 +54,6 @@ Signed-off-by: <user.name> <user.email>
 - **perf**: Performance improvement
 - **chore**: Maintenance tasks
 
-## Rules
-
-- Imperative mood: "add" not "added", "fix" not "fixed"
-- Summary under 50 characters
-- Breaking changes: use `!` after type/scope or `BREAKING CHANGE:` footer
-- Reference issue numbers if applicable
-
 ## Body Structure
 
 Use three headings when the commit warrants a body:
@@ -70,7 +74,7 @@ Prose explanation of the motivation and who is affected. No bullet points.
 1. Run `git diff --staged` (or `git diff`) to understand changes
 2. Run tests and linting to confirm nothing is broken
 3. Choose type, optional scope, and write a concise description
-4. If `$ARGUMENTS` is provided, add `Relates to $ARGUMENTS` after the body
+4. If `$ARGUMENTS` is provided, add `Relates to $ARGUMENTS` after the body — if a bare number, format as `#<number>`; if a URL, use as-is
 5. Use heredoc for multi-line commits:
 
 ```bash
@@ -94,40 +98,7 @@ EOF
 )"
 ```
 
-## Examples
-
-### Feature with body
-
-```bash
-git commit --signoff -m "$(cat <<'EOF'
-feat(auth): add session expiry validation
-
-## What
-
-Add middleware that checks session token expiry before processing requests.
-Expired sessions now return 401 instead of proceeding with stale credentials.
-
-## Why
-
-Users with expired sessions were hitting downstream services that rejected
-them anyway, generating confusing 500 errors. This affects end users and
-the on-call team triaging false alarms.
-
-## Notes
-
-- Sessions older than 24h are force-expired; configurable via SESSION_TTL env var
-- Existing active sessions are unaffected by this change
-
-Relates to https://github.com/org/repo/issues/42
-EOF
-)"
-```
-
-### Simple commit without body
-
-```bash
-git commit --signoff -m "chore: bump dependencies to latest patch versions"
-```
+For worked examples, see `references/examples.md`.
 
 ## DO NOT
 
@@ -137,3 +108,7 @@ git commit --signoff -m "chore: bump dependencies to latest patch versions"
 - Skip body when breaking changes need explanation
 - Commit directly to main branch
 - Commit or push without user approval
+
+## Related Skills
+
+- **pr-review-assist** — use after committing to review the PR
