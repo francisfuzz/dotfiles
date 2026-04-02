@@ -40,7 +40,7 @@ Safety rules come first, then formatting rules.
 [optional body with What, Why, Notes]
 
 [optional Relates to <issue>]
-Signed-off-by: <user.name> <user.email>
+(--signoff flag adds Signed-off-by automatically)
 ```
 
 ## Types
