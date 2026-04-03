@@ -55,9 +55,13 @@ The `SKILL.md` file contains:
 ## Key Development Conventions
 
 ### Git & Version Control
-- Use conventional commit format for commit messages
+- Use the `git-ops` skill for commits, rebases, and history search
+- Detect commit style from the repo's existing `git log` before writing messages
+- Default to multiple atomic commits — split by directory, concern, and component type
+- Pair implementation files with their tests in the same commit
 - Include the trailer: `Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>`
 - Preserve git history through careful file moves using `git mv`
+- Always use `--force-with-lease` (never `--force`) when force-pushing
 - Always test changes before committing
 
 ### Symlink Handling
