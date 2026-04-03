@@ -4,25 +4,35 @@
 
 ## Directory Structure
 
-This repository uses a consolidated configuration approach:
+This repository uses a consolidated configuration approach with `.agents/` as the single source of truth, accessible to both Claude Code and GitHub Copilot CLI via symlinks.
 
 ### `.agents/` – Canonical Configuration
-The single source of truth for all agent/skill configurations:
-- **skills/** – Skills for automation (start-work, conventional-commits, pr-review-assist, handoff-primitive)
+
+- **agents/** – Subagent definitions for delegation (explore, librarian, metis, momus, oracle)
+- **skills/** – Reusable skills invoked via `/skill-name`:
+  - `git-commit` – Conventional Commits-formatted commit messages
+  - `git-ops` – Atomic commits, interactive rebase, history search
+  - `interview` – Discovery interviews with Socratic questioning
+  - `pr-review-assist` – Structured PR review
+  - `review-work` – Post-implementation review with parallel agents
+  - `transcript-to-artifact` – Meeting transcripts → structured artifacts
 
 ### `archive/` – Archived Configuration
+
 Previously active configuration that has been retired:
-- **commands/** – Claude commands (engineering-brief, interview, etc.)
-- **prompts/** – Prompt templates (start-work, etc.)
+- **commands/** – Legacy Claude command templates
+- **prompts/** – Legacy prompt templates
 
-### `.claude/` & `.github/`
-Backward-compatible symbolic links:
-- `.claude/commands` → `../archive/commands`
-- `.claude/skills` → `../.agents/skills`
-- `.github/prompts` → `../archive/prompts`
-- `.github/skills` → `../.agents/skills`
+### Symlinks
 
-This allows tools expecting the original paths to work seamlessly while maintaining a single location for configuration updates.
+| Symlink | Target | Purpose |
+|---------|--------|---------|
+| `CLAUDE.md` | `AGENTS.md` | Both tools read the same agent config |
+| `.claude/agents` | `.agents/agents` | Claude Code subagent discovery |
+| `.claude/commands` | `archive/commands` | Legacy command compatibility |
+| `.claude/skills` | `.agents/skills` | Claude Code skill discovery |
+| `.github/prompts` | `archive/prompts` | Legacy prompt compatibility |
+| `.github/skills` | `.agents/skills` | Copilot CLI skill discovery |
 
 ## License
 
@@ -30,4 +40,5 @@ This allows tools expecting the original paths to work seamlessly while maintain
 
 ## Credits
 
-- Interview Command Inspiration: [`@developersdigest`](https://github.com/developersdigest) ["Claude Code 'Interview' Mode in 6 Minutes"](https://www.youtube.com/watch?v=vgHBEju4kGE)
+- Interview Skill Inspiration: [`@developersdigest`](https://github.com/developersdigest) ["Claude Code 'Interview' Mode in 6 Minutes"](https://www.youtube.com/watch?v=vgHBEju4kGE)
+- Agent & Command Patterns: [`francisfuzz/learning-opencode`](https://github.com/francisfuzz/learning-opencode)
