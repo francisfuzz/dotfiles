@@ -185,7 +185,7 @@ A task is complete when:
 ### Available Skills
 
 In addition to the common skills listed below, these task-oriented skills are available via `/skill-name`:
-- `/git-master` — Expert git operations: atomic commits, rebase, history search
+- `/git-ops` — Expert git operations: atomic commits, rebase, history search
 - `/review-work` — Post-implementation review with parallel review agents
 
 ---
@@ -214,7 +214,7 @@ Active git-tracked configuration files live here:
 │   └── oracle.md
 └── skills/               # Reusable skills
     ├── git-commit/
-    ├── git-master/
+    ├── git-ops/
     ├── interview/
     ├── pr-review-assist/
     ├── review-work/
@@ -264,7 +264,7 @@ Each skill directory contains:
 
 ### Common Skills
 - **git-commit** – Generate properly formatted commit messages
-- **git-master** – Expert git operations: atomic commits, rebase, history search
+- **git-ops** – Expert git operations: atomic commits, rebase, history search
 - **interview** – Conduct comprehensive discovery interviews with Socratic questioning
 - **pr-review-assist** – Review code changes intelligently
 - **review-work** – Post-implementation review with parallel review agents

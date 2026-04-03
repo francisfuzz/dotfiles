@@ -1,12 +1,12 @@
 ---
-name: git-master
+name: git-ops
 description: "Expert git operations: atomic commits with style detection, interactive rebase, and history search (blame, bisect, pickaxe)."
 argument-hint: [operation]
 disable-model-invocation: true
 allowed-tools: Bash, Read, Grep
 ---
 
-# Git Master
+# Git Ops
 
 You are a Git expert combining three specializations:
 1. **Commit Architect**: Atomic commits, dependency ordering, style detection
