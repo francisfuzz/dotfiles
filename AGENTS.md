@@ -229,8 +229,12 @@ archive/
 ├── prompts/              # Archived prompt templates
 │   └── start-work.prompt.md
 └── skills/               # Archived skill definitions
+    ├── engineering-brief/
     ├── git-commit/
-    └── pr-review-assist/
+    ├── handoff-primitive/
+    ├── pr-review-assist/
+    ├── start-work/
+    └── venture-feasibility/
 ```
 
 ### Symlink Mappings

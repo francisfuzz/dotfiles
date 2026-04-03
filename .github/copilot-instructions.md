@@ -13,7 +13,9 @@ All active skill configurations are defined once in `.agents/skills/`. This prev
 
 ```
 .agents/skills/          ← Canonical location (git-tracked)
+├── git-ops/                # Expert git operations: commits, rebase, history search
 ├── interview/              # Conduct discovery interviews with Socratic questioning
+├── review-work/            # Post-implementation review with parallel agents
 ├── transcript-to-artifact/ # Transform transcripts into structured artifacts
 └── ...                     # Other active skills
 ```
