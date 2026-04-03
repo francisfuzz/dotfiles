@@ -1,5 +1,9 @@
 ---
+name: git-master
 description: "Expert git operations: atomic commits with style detection, interactive rebase, and history search (blame, bisect, pickaxe)."
+argument-hint: [operation]
+disable-model-invocation: true
+allowed-tools: Bash, Read, Grep
 ---
 
 # Git Master

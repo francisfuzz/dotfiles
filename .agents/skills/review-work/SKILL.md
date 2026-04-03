@@ -1,5 +1,8 @@
 ---
+name: review-work
 description: "Post-implementation review orchestrator. Launches 5 parallel review agents covering goal verification, QA, code quality, security, and context mining."
+argument-hint: [description]
+disable-model-invocation: true
 ---
 
 # Review Work — 5-Agent Parallel Review Orchestrator

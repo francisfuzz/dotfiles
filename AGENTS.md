@@ -182,9 +182,9 @@ A task is complete when:
 - Speculate about unread code — **Never**
 - Leave code in broken state after failures — **Never**
 
-### Available Commands
+### Available Skills
 
-Commands are defined in `.agents/commands/`:
+In addition to the common skills listed below, these task-oriented skills are available via `/skill-name`:
 - `/git-master` — Expert git operations: atomic commits, rebase, history search
 - `/review-work` — Post-implementation review with parallel review agents
 
@@ -196,7 +196,6 @@ This repository contains personal dotfiles and agent/skill configurations for Gi
 
 ### Key Components
 - **`.agents/agents/`** – Subagent definitions (explore, librarian, metis, momus, oracle)
-- **`.agents/commands/`** – Slash commands (git-master, review-work)
 - **`.agents/skills/`** – Reusable skills and automation capabilities
 - **`archive/`** – Archived command and prompt templates
 - **`.claude/` & `.github/`** – Symbolic links for tool compatibility
@@ -213,13 +212,12 @@ Active git-tracked configuration files live here:
 │   ├── metis.md
 │   ├── momus.md
 │   └── oracle.md
-├── commands/             # Slash commands
-│   ├── git-master.md
-│   └── review-work.md
 └── skills/               # Reusable skills
     ├── git-commit/
+    ├── git-master/
     ├── interview/
     ├── pr-review-assist/
+    ├── review-work/
     └── transcript-to-artifact/
 ```
 
@@ -238,7 +236,7 @@ archive/
 Local tools expect configurations in `.claude/` and `.github/`:
 - `CLAUDE.md` → `AGENTS.md` (symlink — both tools read the same config)
 - `.claude/agents` → `../.agents/agents` (symlink)
-- `.claude/commands` → `../.agents/commands` (symlink)
+- `.claude/commands` → `../archive/commands` (symlink)
 - `.claude/skills` → `../.agents/skills` (symlink)
 - `.github/prompts` → `../archive/prompts` (symlink)
 - `.github/skills` → `../.agents/skills` (symlink)
@@ -266,8 +264,10 @@ Each skill directory contains:
 
 ### Common Skills
 - **git-commit** – Generate properly formatted commit messages
+- **git-master** – Expert git operations: atomic commits, rebase, history search
 - **interview** – Conduct comprehensive discovery interviews with Socratic questioning
 - **pr-review-assist** – Review code changes intelligently
+- **review-work** – Post-implementation review with parallel review agents
 - **transcript-to-artifact** – Transform meeting transcripts into structured artifacts
 
 ### Using Skills
