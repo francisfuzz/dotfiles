@@ -1,2 +1,7 @@
+[user]
+	name = Francis Batac
+	email = 15894826+francisfuzz@users.noreply.github.com
+[github]
+	user = francisfuzz
 [push]
 	autoSetupRemote = true
