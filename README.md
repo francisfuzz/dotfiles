@@ -10,10 +10,8 @@ This repository uses a consolidated configuration approach with `.agents/` as th
 
 - **agents/** – Subagent definitions for delegation (explore, librarian, metis, momus, oracle)
 - **skills/** – Reusable skills invoked via `/skill-name`:
-  - `git-commit` – Conventional Commits-formatted commit messages
   - `git-ops` – Atomic commits, interactive rebase, history search
   - `interview` – Discovery interviews with Socratic questioning
-  - `pr-review-assist` – Structured PR review
   - `review-work` – Post-implementation review with parallel agents
   - `transcript-to-artifact` – Meeting transcripts → structured artifacts
 
@@ -22,6 +20,7 @@ This repository uses a consolidated configuration approach with `.agents/` as th
 Previously active configuration that has been retired:
 - **commands/** – Legacy Claude command templates
 - **prompts/** – Legacy prompt templates
+- **skills/** – Archived skill definitions (git-commit, pr-review-assist, etc.)
 
 ### Symlinks
 

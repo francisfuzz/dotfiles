@@ -13,13 +13,11 @@ All active skill configurations are defined once in `.agents/skills/`. This prev
 
 ```
 .agents/skills/          ← Canonical location (git-tracked)
-├── conventional-commits/    # Generate properly formatted commit messages
-├── engineering-brief/       # Define constraints, risks, success metrics
+├── git-ops/                # Expert git operations: commits, rebase, history search
 ├── interview/              # Conduct discovery interviews with Socratic questioning
-├── pr-review-assist/       # Review code changes intelligently
-├── start-work/             # Begin work on GitHub issues with discovery & TDD
+├── review-work/            # Post-implementation review with parallel agents
 ├── transcript-to-artifact/ # Transform transcripts into structured artifacts
-└── venture-feasibility/    # Reality-check business ideas with math
+└── ...                     # Other active skills
 ```
 
 ### Backward Compatibility: Symlinks
@@ -35,6 +33,7 @@ When tools resolve these paths, they transparently access the canonical source.
 Previously active configurations have been moved to `archive/` for reference:
 - `archive/commands/` — Retired Claude commands
 - `archive/prompts/` — Retired prompt templates
+- `archive/skills/` — Archived skill definitions (git-commit, pr-review-assist, etc.)
 
 ### Local Runtime Data: `.claude/` (not tracked)
 Files like `cache/`, `history.jsonl`, `settings.json`, and plugin data are git-ignored. These are session-specific and should not be committed.
@@ -58,9 +57,13 @@ The `SKILL.md` file contains:
 ## Key Development Conventions
 
 ### Git & Version Control
-- Use the `conventional-commits` skill to generate commit messages with proper formatting
+- Use the `git-ops` skill for commits, rebases, and history search
+- Detect commit style from the repo's existing `git log` before writing messages
+- Default to multiple atomic commits — split by directory, concern, and component type
+- Pair implementation files with their tests in the same commit
 - Include the trailer: `Co-authored-by: Copilot <223556219+Copilot@users.noreply.github.com>`
 - Preserve git history through careful file moves using `git mv`
+- Always use `--force-with-lease` (never `--force`) when force-pushing
 - Always test changes before committing
 
 ### Symlink Handling
@@ -151,7 +154,7 @@ Skills are loaded and invoked via:
 
 1. **Check existing skills first** — Before creating new automation, browse `.agents/skills/` to see if similar patterns already exist
 2. **Maintain the canonical structure** — Always edit in `.agents/skills/`, never add directly to `.claude/` or `.github/`
-3. **Use conventional commits** — Generate commit messages with the `conventional-commits` skill
+3. **Use conventional commits** — Follow the Conventional Commits format for commit messages
 4. **Preserve history** — Use `git mv` for file reorganization, not copy/delete
 5. **Document intent** — SKILL.md files should be clear enough for future agents to understand purpose and usage
 

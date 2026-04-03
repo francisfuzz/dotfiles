@@ -213,10 +213,8 @@ Active git-tracked configuration files live here:
 │   ├── momus.md
 │   └── oracle.md
 └── skills/               # Reusable skills
-    ├── git-commit/
     ├── git-ops/
     ├── interview/
-    ├── pr-review-assist/
     ├── review-work/
     └── transcript-to-artifact/
 ```
@@ -228,8 +226,15 @@ archive/
 ├── commands/              # Archived Claude command references
 │   ├── start-work.md
 │   └── README.md
-└── prompts/              # Archived prompt templates
-    └── start-work.prompt.md
+├── prompts/              # Archived prompt templates
+│   └── start-work.prompt.md
+└── skills/               # Archived skill definitions
+    ├── engineering-brief/
+    ├── git-commit/
+    ├── handoff-primitive/
+    ├── pr-review-assist/
+    ├── start-work/
+    └── venture-feasibility/
 ```
 
 ### Symlink Mappings
@@ -263,10 +268,8 @@ Each skill directory contains:
 - Optional subdirectories for supporting files (references/, examples/, etc.)
 
 ### Common Skills
-- **git-commit** – Generate properly formatted commit messages
 - **git-ops** – Expert git operations: atomic commits, rebase, history search
 - **interview** – Conduct comprehensive discovery interviews with Socratic questioning
-- **pr-review-assist** – Review code changes intelligently
 - **review-work** – Post-implementation review with parallel review agents
 - **transcript-to-artifact** – Transform meeting transcripts into structured artifacts
 
@@ -288,7 +291,7 @@ Commands have been archived to `archive/commands/`. See `archive/commands/README
 3. For new issues: Check `.agents/skills/` for relevant automation capabilities
 
 ### Git and Version Control
-- Use `git-commit` skill to generate commit messages
+- Use conventional commit format for commit messages
 - Preserve git history through file moves and refactors
 - Test all changes before committing
 
@@ -380,7 +383,7 @@ readlink .claude/commands
 
 ### Reviewing a Skill's Instructions
 ```bash
-cat .agents/skills/git-commit/SKILL.md
+cat .agents/skills/interview/SKILL.md
 ```
 
 ## Notes for Agent Contributors
