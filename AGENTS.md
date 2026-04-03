@@ -285,10 +285,10 @@ Commands have been archived to `archive/commands/`. See `archive/commands/README
 ### Before Starting a Task
 1. Understand the project structure and existing patterns
 2. Check `.agents/skills/` for relevant automation capabilities
-3. For new issues: Run `start-work` skill or prompt
+3. For new issues: Check `.agents/skills/` for relevant automation capabilities
 
 ### Git and Version Control
-- Use `conventional-commits` skill to generate commit messages
+- Use `git-commit` skill to generate commit messages
 - Preserve git history through file moves and refactors
 - Test all changes before committing
 
@@ -380,7 +380,7 @@ readlink .claude/commands
 
 ### Reviewing a Skill's Instructions
 ```bash
-cat .agents/skills/start-work/SKILL.md
+cat .agents/skills/git-commit/SKILL.md
 ```
 
 ## Notes for Agent Contributors
