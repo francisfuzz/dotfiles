@@ -395,6 +395,21 @@ IF style == SHORT:
   -> "format" / "type fix" / "lint"
 ```
 
+### 5.4 Co-Author Handling (CRITICAL RULE)
+
+**NEVER add any agent (including Copilot) as a co-author automatically.**
+
+```
+RULE: Only add co-author(s) when the user explicitly requests it.
+
+IF user explicitly requests a co-author:
+  -> Add the trailer: Co-authored-by: [Name] <[email]>
+  
+ELSE:
+  -> Do NOT add any co-author trailers
+  -> Commits belong solely to the user/committer
+```
+
 ---
 
 ## PHASE 6: Verification & Cleanup
