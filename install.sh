@@ -3,6 +3,21 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# Safe symlink: creates or updates a symlink, warns if a real file/dir is in the way
+symlink() {
+  local target="$1"
+  local link_path="$2"
+  if [ -L "$link_path" ]; then
+    ln -sf "$target" "$link_path"
+    echo "✓ $link_path updated"
+  elif [ -e "$link_path" ]; then
+    echo "⚠ $link_path exists and is not a symlink — skipping (remove it manually to install)"
+  else
+    ln -s "$target" "$link_path"
+    echo "✓ $link_path symlinked"
+  fi
+}
+
 # Apply gitconfig
 if [ -f "$DOTFILES_DIR/gitconfig" ]; then
   mkdir -p ~/.config/git
@@ -10,11 +25,12 @@ if [ -f "$DOTFILES_DIR/gitconfig" ]; then
   echo "✓ gitconfig installed"
 fi
 
-# Symlink agent config directories to home for discoverability
-# by Claude Code, Copilot, OpenCode, and other agents in Codespaces
-for dir in .claude .agents; do
-  if [ -d "$DOTFILES_DIR/$dir" ]; then
-    ln -sf "$DOTFILES_DIR/$dir" ~/"$dir"
-    echo "✓ $dir symlinked"
-  fi
-done
+# ~/.agents — whole directory is safe to symlink (no user runtime data lives here)
+symlink "$DOTFILES_DIR/.agents" "$HOME/.agents"
+
+# ~/.claude — symlink individual subdirs only; the parent dir accumulates runtime
+# data (history, sessions, settings) that must not be replaced on a daily-use machine
+mkdir -p "$HOME/.claude"
+symlink "$DOTFILES_DIR/.agents/agents"   "$HOME/.claude/agents"
+symlink "$DOTFILES_DIR/.agents/skills"   "$HOME/.claude/skills"
+symlink "$DOTFILES_DIR/archive/commands" "$HOME/.claude/commands"
