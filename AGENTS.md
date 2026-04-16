@@ -92,6 +92,7 @@ Agents are defined in `.agents/agents/` and are available for delegation based o
 | `metis` | Pre-planning analysis for complex/ambiguous tasks, scope clarification |
 | `momus` | Plan review before execution, catching blocking issues |
 | `oracle` | Architecture decisions, self-review after significant work, 2+ failed fix attempts, security/performance concerns |
+| `forge` | Write-capable implementation agent. Executes a Forge Spec exactly — no improvisation, no scope expansion |
 
 #### Explore Agent = Contextual Grep
 
@@ -134,6 +135,43 @@ Before following existing patterns, assess whether they're worth following.
 
 ### Phase 2B — Implementation
 
+**Parallelization Gate (BEFORE implementing directly):**
+
+If the task has 2+ independent implementation tracks:
+1. Write a Forge Spec for each track (template below)
+2. Choose executor per track:
+   - **Claude forge** (tight feedback loop, complex logic) → spawn with `isolation: worktree`
+   - **Codex** (well-scoped, async acceptable) → `gh issue create --label forge` and assign
+3. Proceed to Phase 2D when all tracks report complete or blocked
+
+**Forge Spec Template** (executor-agnostic — works for both Claude forge and Codex):
+
+```markdown
+## Forge Spec
+
+**Objective**: [one sentence — what to accomplish and why]
+
+**Files to touch**:
+- `path/to/file` — [what to change]
+
+**Files NOT to touch**:
+- `path/to/other` — [why excluded]
+- Any file not listed above
+
+**Follow this pattern**:
+- `path/to/example:L10-L40` — [what aspect of it to replicate]
+
+**Done when**:
+- [ ] [verifiable condition — a command output, file state, grep result]
+
+**Must NOT**:
+- [explicit constraint]
+- Commit
+- Touch files outside the list above
+```
+
+If only one implementation track exists, implement directly:
+
 - If task has 2+ steps → Break it down and track progress
 - Match existing patterns (if codebase is disciplined)
 - Never suppress type errors
@@ -146,7 +184,7 @@ Before following existing patterns, assess whether they're worth following.
 - **Test run** → Pass (or explicit note of pre-existing failures)
 - **Delegation** → Agent result received and verified
 
-### Phase 2C — Failure Recovery
+### Phase 2C — Failure Recovery (Direct Implementation)
 
 1. Fix root causes, not symptoms
 2. Re-verify after EVERY fix attempt
@@ -158,6 +196,17 @@ Before following existing patterns, assess whether they're worth following.
 3. DOCUMENT what was attempted
 4. CONSULT specialist with full failure context
 5. If specialist cannot resolve → ASK USER
+
+### Phase 2D — Integration (after forge tracks complete)
+
+1. Read each forge branch's diff: `git diff main...branch-name`
+2. Verify each **Done when** condition is met
+3. Check for scope violations — files touched outside the spec are a bug in the forge, not a feature
+4. If all clean: merge branches sequentially, run diagnostics on combined result
+5. If conflict at merge: resolve at the overlapping lines only; do not rewrite either forge's intent
+6. If a forge reported **Blocked**: treat as a Phase 2C failure for that track — fix the spec and re-dispatch
+
+**Merge order**: least-dependent track first. Fully independent tracks can merge in any order.
 
 ### Phase 3 — Completion
 
@@ -195,7 +244,7 @@ In addition to the common skills listed below, these task-oriented skills are av
 This repository contains personal dotfiles and agent/skill configurations for GitHub Copilot CLI and Claude AI workflows. The project consolidates active configuration into a single canonical `.agents/` directory with backward-compatible symlinks.
 
 ### Key Components
-- **`.agents/agents/`** – Subagent definitions (explore, librarian, metis, momus, oracle)
+- **`.agents/agents/`** – Subagent definitions (explore, librarian, metis, momus, oracle, forge)
 - **`.agents/skills/`** – Reusable skills and automation capabilities
 - **`archive/`** – Archived command and prompt templates
 - **`.claude/` & `.github/`** – Symbolic links for tool compatibility
@@ -211,7 +260,8 @@ Active git-tracked configuration files live here:
 │   ├── librarian.md
 │   ├── metis.md
 │   ├── momus.md
-│   └── oracle.md
+│   ├── oracle.md
+│   └── forge.md
 └── skills/               # Reusable skills
     ├── git-ops/
     ├── interview/
