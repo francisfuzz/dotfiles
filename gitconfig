@@ -5,3 +5,5 @@
 	user = francisfuzz
 [push]
 	autoSetupRemote = true
+[alias]
+	review = "!f() { if [ -z \"$1\" ]; then echo \"Usage: git review <branch-name>\"; return 1; fi; git fetch origin \"$1\" && git checkout -B \"$1\" --track origin/\"$1\"; }; f"
