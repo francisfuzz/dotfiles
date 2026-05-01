@@ -5,3 +5,5 @@
 	user = francisfuzz
 [push]
 	autoSetupRemote = true
+[alias]
+	review = "!f() { git fetch origin \"$1\" && git checkout -B \"$1\" origin/\"$1\"; }; f"
