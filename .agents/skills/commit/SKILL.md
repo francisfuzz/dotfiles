@@ -4,6 +4,13 @@ description: Create a meaningful git commit message based on current changes.
 argument-hint: [issue-url | issue-id]
 ---
 
+## When to Use
+
+* **Single logical change** — Use when your staged changes touch 1–2 tightly coupled files and belong to one coherent commit
+* **Structured commit body needed** — Use when you want a What / Why / Notes breakdown rather than a one-liner
+* **Issue linkage** — Use when you want to associate the commit to a GitHub issue or Linear ticket via `$ARGUMENTS`
+* **Multi-file or atomic splits needed** — Use `/git-ops` instead; this skill is optimized for focused, single-purpose commits
+
 ## Context
 
 - Current status: !`git status`
