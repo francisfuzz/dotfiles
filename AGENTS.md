@@ -91,7 +91,7 @@ Agents are defined in `.agents/agents/` and are available for delegation based o
 | `librarian` | External docs, library APIs, open-source research, unfamiliar packages |
 | `metis` | Pre-planning analysis for complex/ambiguous tasks, scope clarification |
 | `momus` | Plan review before execution, catching blocking issues |
-| `oracle` | Architecture decisions, self-review after significant work, 2+ failed fix attempts, security/performance concerns |
+| `oracle` | Architecture decisions, debugging, self-review after significant work, 2+ failed fix attempts, security/performance concerns |
 | `forge` | Write-capable implementation agent. Executes a Forge Spec exactly — no improvisation, no scope expansion |
 
 #### Explore Agent = Contextual Grep
