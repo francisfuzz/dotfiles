@@ -12,13 +12,20 @@ These commands have been migrated to skills for better integration with AI agent
 
 ## Migrated to Skills
 
-The following commands are now available as skills and can be invoked with `/skills`:
+The following commands were migrated to skills. Some are archived; others remain active.
 
-- **`engineering-brief`** — Define constraints, risks, and success metrics before writing code
-- **`interview`** — Turn vague ideas into complete project specs through Socratic questioning  
-- **`venture-feasibility`** — Reality-check business ideas with math before investing time
+### Active Skills
 
-See `.agents/skills/` for the full skill definitions.
+These skills are actively maintained and available in `.agents/skills/`:
+
+- **`interview`** *(active)* — Turn vague ideas into complete project specs through Socratic questioning. See `.agents/skills/interview/SKILL.md`.
+
+### Archived Skills
+
+These skills have been archived and are no longer actively maintained:
+
+- **`engineering-brief`** *(archived)* — Define constraints, risks, and success metrics before writing code
+- **`venture-feasibility`** *(archived)* — Reality-check business ideas with math before investing time
 
 ## Quick Start
 
