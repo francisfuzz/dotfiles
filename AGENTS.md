@@ -237,7 +237,7 @@ In addition to the common skills listed below, these task-oriented skills are av
 - `/commit` — Draft a single Conventional Commit message with What/Why/Notes body and optional issue linking; use for one logical change
 - `/git-ops` — Expert git operations: atomic multi-commit splitting (style-detected), rebase, history search; use when 3+ files change
 - `/interview` — Conduct a comprehensive discovery interview using Socratic questioning to develop detailed project specifications; use when the user needs a spec, brief, PRD, or plan, or wants to turn vague requirements into something concrete
-- `/review` — Multi-model, verification-first PR review with severity-ranked findings
+- `/review [pr-url | pr-number | branch]` — Multi-model, verification-first PR review with severity-ranked findings
 - `/review-work` — Post-implementation review with parallel review agents
 
 ---
