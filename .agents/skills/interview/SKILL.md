@@ -1,6 +1,7 @@
 ---
 name: interview
 description: "Conduct a comprehensive discovery interview using Socratic questioning to develop detailed project specifications and validate assumptions. Use this skill whenever the user mentions needing a spec, brief, PRD, or plan; wants to turn vague requirements into something concrete; says things like \"help me think through this\", \"I have an idea but don't know where to start\", \"can you interview me\", or wants to surface hidden assumptions before building anything. Also trigger when a user shares a brief or idea and wants structured discovery before writing a specification document. Works for any domain: engineering, design, product, research, writing, and more."
+argument-hint: [topic | context]
 ---
 
 # Project Discovery Interview
