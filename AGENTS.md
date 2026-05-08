@@ -90,8 +90,8 @@ Agents are defined in `.agents/agents/` and are available for delegation based o
 | `explore` | Codebase search, multi-module investigation, cross-layer pattern discovery |
 | `librarian` | External docs, library APIs, open-source research, unfamiliar packages |
 | `metis` | Pre-planning analysis for complex/ambiguous tasks, scope clarification |
-| `momus` | Plan review before execution, catching blocking issues |
-| `oracle` | Architecture decisions, self-review after significant work, 2+ failed fix attempts, security/performance concerns |
+| `momus` | Plan reviewer for blocking issues only (approval bias: 80% is good enough) |
+| `oracle` | Architecture decisions, debugging, self-review after significant work, 2+ failed fix attempts, security/performance concerns |
 | `forge` | Write-capable implementation agent. Executes a Forge Spec exactly — no improvisation, no scope expansion |
 
 #### Explore Agent = Contextual Grep
@@ -236,6 +236,7 @@ A task is complete when:
 In addition to the common skills listed below, these task-oriented skills are available via `/skill-name`:
 - `/commit` — Draft a single Conventional Commit message with What/Why/Notes body and optional issue linking; use for one logical change
 - `/git-ops` — Expert git operations: atomic multi-commit splitting (style-detected), rebase, history search; use when 3+ files change
+- `/interview` — Conduct a comprehensive discovery interview using Socratic questioning to develop detailed project specifications; use when the user needs a spec, brief, PRD, or plan, or wants to turn vague requirements into something concrete
 - `/review` — Multi-model, verification-first PR review with severity-ranked findings
 - `/review-work` — Post-implementation review with parallel review agents
 
