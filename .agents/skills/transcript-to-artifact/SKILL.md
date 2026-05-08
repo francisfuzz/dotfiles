@@ -1,6 +1,7 @@
 ---
 name: transcript-to-artifact
 description: Transform meeting transcripts into structured artifact (TL;DR, decisions, action items, follow-ups). Use when processing meeting recordings, transcripts, or when user mentions "transcript", "meeting notes", or "extract from meeting".
+argument-hint: [transcript-file | transcript-text]
 ---
 
 # Transcript to Artifact
