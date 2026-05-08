@@ -17,6 +17,8 @@ User request: $ARGUMENTS
 
 ---
 
+> **See also:** `/commit` for lightweight single-message drafting with structured What/Why/Notes body and issue linking — use it when you have one logical change and don't need atomic splitting or style detection.
+
 ## MODE DETECTION (FIRST STEP)
 
 Analyze the user's request to determine operation mode:

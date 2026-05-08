@@ -234,7 +234,9 @@ A task is complete when:
 ### Available Skills
 
 In addition to the common skills listed below, these task-oriented skills are available via `/skill-name`:
-- `/git-ops` — Expert git operations: atomic commits, rebase, history search
+- `/commit` — Draft a single Conventional Commit message with What/Why/Notes body and optional issue linking; use for one logical change
+- `/git-ops` — Expert git operations: atomic multi-commit splitting (style-detected), rebase, history search; use when 3+ files change
+- `/review` — Multi-model, verification-first PR review with severity-ranked findings
 - `/review-work` — Post-implementation review with parallel review agents
 
 ---
@@ -263,8 +265,10 @@ Active git-tracked configuration files live here:
 │   ├── oracle.md
 │   └── forge.md
 └── skills/               # Reusable skills
+    ├── commit/
     ├── git-ops/
     ├── interview/
+    ├── review/
     ├── review-work/
     └── transcript-to-artifact/
 ```
@@ -318,8 +322,10 @@ Each skill directory contains:
 - Optional subdirectories for supporting files (references/, examples/, etc.)
 
 ### Common Skills
-- **git-ops** – Expert git operations: atomic commits, rebase, history search
+- **commit** – Draft a single Conventional Commit message (What/Why/Notes) with optional issue linking; use for one logical change
+- **git-ops** – Expert git operations: atomic multi-commit splitting (style-detected), rebase, history search; use when 3+ files change
 - **interview** – Conduct comprehensive discovery interviews with Socratic questioning
+- **review** – Multi-model, verification-first PR review with severity-ranked findings
 - **review-work** – Post-implementation review with parallel review agents
 - **transcript-to-artifact** – Transform meeting transcripts into structured artifacts
 
