@@ -87,12 +87,12 @@ Agents are defined in `.agents/agents/` and are available for delegation based o
 
 | Agent | When to Use |
 |---|---|
-| `explore` | Codebase search, multi-module investigation, cross-layer pattern discovery |
-| `librarian` | External docs, library APIs, open-source research, unfamiliar packages |
-| `metis` | Pre-planning analysis for complex/ambiguous tasks, scope clarification |
-| `momus` | Plan reviewer for blocking issues only (approval bias: 80% is good enough) |
-| `oracle` | Architecture decisions, debugging, self-review after significant work, 2+ failed fix attempts, security/performance concerns |
-| `forge` | Write-capable implementation agent. Executes a Forge Spec exactly — no improvisation, no scope expansion |
+| `explore` | Codebase search specialist. Answers 'Where is X?', 'Which files contain Y?', 'Find code that does Z'. Fire multiple in parallel for broad searches. |
+| `librarian` | External documentation and library research specialist. Finds official docs, implementation examples, and open-source references using web search and GitHub CLI. |
+| `metis` | Pre-planning consultant that identifies hidden intentions, ambiguities, and AI failure patterns before implementation begins. |
+| `momus` | Plan reviewer. Catches blocking issues only. Approval bias: 80% clear is good enough. |
+| `oracle` | Read-only strategic advisor for architecture, debugging, and self-review. High-IQ reasoning specialist. |
+| `forge` | Minimal write-capable implementation agent. Executes a Forge Spec exactly — no improvisation, no scope expansion. |
 
 #### Explore Agent = Contextual Grep
 
