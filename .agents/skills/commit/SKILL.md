@@ -26,3 +26,5 @@ argument-hint: [issue-url | issue-id]
 - Notes should highlight things reviewers should specifically watch for that aren't apparent from reading the code diff and each note in a bulleted list.
 - Avoid stating obvious facts or repeating What/Why.
 - If the issue-url or issue-id ($ARGUMENTS) is provided, add `Relates to $ARGUMENTS` as the first line after the commit title to associate the commit to its issue. Use Linear MCP server or GitHub gh cli if available to get issue-url when issue-id is provided
+
+> **See also:** `/git-ops` for multi-file changes that require atomic splitting across multiple commits, style detection, rebase, or history search.
