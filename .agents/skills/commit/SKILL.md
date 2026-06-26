@@ -1,7 +1,7 @@
 ---
 name: commit
 description: Create a meaningful git commit message based on current changes.
-argument-hint: "[issue-url | issue-id]"
+argument-hint: "issue-url | issue-id"
 ---
 
 ## When to Use
