@@ -32,6 +32,7 @@ symlink "$DOTFILES_DIR/.agents" "$HOME/.agents"
 # data (sessions, settings, logs) that must not be replaced on a daily-use machine
 mkdir -p "$HOME/.copilot"
 symlink "$DOTFILES_DIR/.agents/skills" "$HOME/.copilot/skills"
+symlink "$DOTFILES_DIR/.agents/copilot-instructions.md" "$HOME/.copilot/copilot-instructions.md"
 
 # ~/.claude — symlink individual subdirs only; the parent dir accumulates runtime
 # data (history, sessions, settings) that must not be replaced on a daily-use machine
