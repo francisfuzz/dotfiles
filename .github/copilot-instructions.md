@@ -24,6 +24,7 @@ All active skill configurations are defined once in `.agents/skills/`. This prev
 Tools expect configurations in `.claude/`, `.copilot/`, and `.github/`. Symlinks maintain compatibility:
 - `.claude/skills` → `../.agents/skills`
 - `~/.copilot/skills` → `[dotfiles]/.agents/skills`
+- `~/.copilot/copilot-instructions.md` → `[dotfiles]/.agents/copilot-instructions.md`
 - `.github/skills` → `../.agents/skills`
 - `.github/prompts` → `../archive/prompts`
 - `.claude/commands` → `../archive/commands`
@@ -116,6 +117,7 @@ bash install.sh
 1. Installs git configuration from `gitconfig`
 2. Creates a symlink: `~/.agents` → `[dotfiles]/.agents`
 3. Creates a symlink: `~/.copilot/skills` → `[dotfiles]/.agents/skills` (for Copilot CLI skill discovery)
+4. Creates a symlink: `~/.copilot/copilot-instructions.md` → `[dotfiles]/.agents/copilot-instructions.md` (global session orchestration loaded by Copilot CLI in every repo)
 
 **Codespaces Integration:**
 Set this repository as your [Codespaces dotfiles](https://docs.github.com/en/codespaces/setting-your-user-preferences/personalizing-github-codespaces-for-your-account#dotfiles) in your GitHub settings. When you create a new codespace, GitHub will automatically:
