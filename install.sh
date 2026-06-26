@@ -8,7 +8,7 @@ symlink() {
   local target="$1"
   local link_path="$2"
   if [ -L "$link_path" ]; then
-    ln -sf "$target" "$link_path"
+    ln -sfn "$target" "$link_path"
     echo "✓ $link_path updated"
   elif [ -e "$link_path" ]; then
     echo "⚠ $link_path exists and is not a symlink — skipping (remove it manually to install)"
@@ -27,6 +27,11 @@ fi
 
 # ~/.agents — whole directory is safe to symlink (no user runtime data lives here)
 symlink "$DOTFILES_DIR/.agents" "$HOME/.agents"
+
+# ~/.copilot — symlink individual subdirs only; the parent dir accumulates runtime
+# data (sessions, settings, logs) that must not be replaced on a daily-use machine
+mkdir -p "$HOME/.copilot"
+symlink "$DOTFILES_DIR/.agents/skills" "$HOME/.copilot/skills"
 
 # ~/.claude — symlink individual subdirs only; the parent dir accumulates runtime
 # data (history, sessions, settings) that must not be replaced on a daily-use machine

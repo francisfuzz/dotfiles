@@ -30,8 +30,9 @@ Previously active configuration that has been retired:
 | `.claude/agents` | `.agents/agents` | Claude Code subagent discovery |
 | `.claude/commands` | `archive/commands` | Legacy command compatibility |
 | `.claude/skills` | `.agents/skills` | Claude Code skill discovery |
+| `.copilot/skills` | `.agents/skills` | Copilot CLI user skill discovery |
 | `.github/prompts` | `archive/prompts` | Legacy prompt compatibility |
-| `.github/skills` | `.agents/skills` | Copilot CLI skill discovery |
+| `.github/skills` | `.agents/skills` | Repository-local Copilot skill discovery |
 
 ## License
 
