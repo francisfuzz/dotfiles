@@ -23,7 +23,7 @@ All active skill configurations are defined once in `.agents/skills/`. This prev
 ### Backward Compatibility: Symlinks
 Tools expect configurations in `.claude/`, `.copilot/`, and `.github/`. Symlinks maintain compatibility:
 - `.claude/skills` → `../.agents/skills`
-- `~/.copilot/skills` → `[dotfiles]/.agents/skills`
+- `~/.copilot/skills/[skill-name]` → `[dotfiles]/.agents/skills/[skill-name]`
 - `~/.copilot/copilot-instructions.md` → `[dotfiles]/.agents/copilot-instructions.md`
 - `.github/skills` → `../.agents/skills`
 - `.github/prompts` → `../archive/prompts`
@@ -116,7 +116,7 @@ bash install.sh
 **What it does:**
 1. Installs git configuration from `gitconfig`
 2. Creates a symlink: `~/.agents` → `[dotfiles]/.agents`
-3. Creates a symlink: `~/.copilot/skills` → `[dotfiles]/.agents/skills` (for Copilot CLI skill discovery)
+3. Creates per-skill symlinks in `~/.copilot/skills/` → `[dotfiles]/.agents/skills/*` (for Copilot CLI skill discovery without replacing installed skills)
 4. Creates a symlink: `~/.copilot/copilot-instructions.md` → `[dotfiles]/.agents/copilot-instructions.md` (global session orchestration loaded by Copilot CLI in every repo)
 
 **Codespaces Integration:**
