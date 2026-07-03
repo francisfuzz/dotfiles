@@ -1,7 +1,6 @@
 ---
 name: review
 description: Review a PR (by link or from current context) or the current feature branch using a multi-model, verification-first workflow.
-argument-hint: "pr-url | pr-number | branch"
 ---
 
 ## Code Review Workflow
