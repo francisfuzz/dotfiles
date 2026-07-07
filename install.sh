@@ -18,6 +18,20 @@ symlink() {
   fi
 }
 
+symlink_children() {
+  local source_dir="$1"
+  local dest_dir="$2"
+
+  mkdir -p "$dest_dir"
+  for source_path in "$source_dir"/*; do
+    [ -e "$source_path" ] || continue
+
+    local name
+    name="$(basename "$source_path")"
+    symlink "$source_path" "$dest_dir/$name"
+  done
+}
+
 # Apply gitconfig
 if [ -f "$DOTFILES_DIR/gitconfig" ]; then
   mkdir -p ~/.config/git
@@ -31,7 +45,7 @@ symlink "$DOTFILES_DIR/.agents" "$HOME/.agents"
 # ~/.copilot — symlink individual subdirs only; the parent dir accumulates runtime
 # data (sessions, settings, logs) that must not be replaced on a daily-use machine
 mkdir -p "$HOME/.copilot"
-symlink "$DOTFILES_DIR/.agents/skills" "$HOME/.copilot/skills"
+symlink_children "$DOTFILES_DIR/.agents/skills" "$HOME/.copilot/skills"
 symlink "$DOTFILES_DIR/.agents/copilot-instructions.md" "$HOME/.copilot/copilot-instructions.md"
 
 # ~/.claude — symlink individual subdirs only; the parent dir accumulates runtime
