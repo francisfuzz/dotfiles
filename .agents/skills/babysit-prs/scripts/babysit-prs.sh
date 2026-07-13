@@ -137,8 +137,16 @@ for r in "${ALLOWED_REPOS[@]:-}"; do
 done
 
 FIELDS="url,repository,number"
-AUTHORED_JSON="$(gh search prs "updated:>=${SINCE}" --author=@me --state=open --json "$FIELDS" --limit 1000 "${SEARCH_FLAGS[@]}")"
-ASSIGNED_JSON="$(gh search prs "updated:>=${SINCE}" --assignee=@me --state=open --json "$FIELDS" --limit 1000 "${SEARCH_FLAGS[@]}")"
+declare -a AUTHORED_CMD=(gh search prs "updated:>=${SINCE}" --author=@me --state=open --json "$FIELDS" --limit 1000)
+declare -a ASSIGNED_CMD=(gh search prs "updated:>=${SINCE}" --assignee=@me --state=open --json "$FIELDS" --limit 1000)
+# Guard the expansion, not just default it: bash 3.2 (macOS's default /bin/bash)
+# errors under `set -u` on a bare "${arr[@]}" when arr is empty.
+if [ "${#SEARCH_FLAGS[@]}" -gt 0 ]; then
+  AUTHORED_CMD+=("${SEARCH_FLAGS[@]}")
+  ASSIGNED_CMD+=("${SEARCH_FLAGS[@]}")
+fi
+AUTHORED_JSON="$("${AUTHORED_CMD[@]}")"
+ASSIGNED_JSON="$("${ASSIGNED_CMD[@]}")"
 
 if [ "$(echo "$AUTHORED_JSON" | jq 'length')" -ge 1000 ] || [ "$(echo "$ASSIGNED_JSON" | jq 'length')" -ge 1000 ]; then
   err "search results may be truncated at 1000; narrow --active-days or --owner"
@@ -199,15 +207,6 @@ notify() {
   fi
 }
 
-# Extract a numeric GitHub Actions run id from a statusCheckRollup detailsUrl,
-# e.g. https://github.com/o/r/actions/runs/12345/job/678 -> 12345
-# Non-Actions checks (third-party statuses, some CodeQL/license URLs) don't
-# match and are correctly skipped: they cannot be rerun via `gh run rerun`.
-extract_run_id() {
-  # macOS ships BSD sed: \+ is a GNU extension and silently matches nothing,
-  # so use POSIX bracket repetition instead (portable across BSD and GNU sed).
-  echo "$1" | sed -n 's#.*/actions/runs/\([0-9][0-9]*\).*#\1#p'
-}
 
 # ---------------------------------------------------------------------------
 # Main per-PR loop
@@ -323,19 +322,18 @@ statusCheckRollup,reviews,comments,author,updatedAt 2>/dev/null || echo '')"
   fi
 
   # -- auto-action: rerun failed required checks once per head commit --
+  # Run-id extraction and de-dup both happen in jq (not bash associative
+  # arrays): macOS ships bash 3.2 by default, which has no `declare -A`.
   if [ "$AUTHORED" = "true" ] && [ "$CHECKS_READABLE" = true ] && [ "$RERUN_HEAD" != "$HEAD_OID" ]; then
     FAILED_RUN_IDS="$(echo "$DETAIL" | jq -r --argjson required "$REQUIRED_CONTEXTS" '
-      [.statusCheckRollup[]? | select(.__typename=="CheckRun") | select(.conclusion=="FAILURE") | select(.name as $n | $required | index($n))]
-      | .[].detailsUrl' 2>/dev/null || echo '')"
+      [.statusCheckRollup[]? | select(.__typename=="CheckRun") | select(.conclusion=="FAILURE") | select(.name as $n | $required | index($n)) | .detailsUrl]
+      | map(select(test("/actions/runs/[0-9]+")) | capture("/actions/runs/(?<id>[0-9]+)").id)
+      | unique
+      | .[]' 2>/dev/null || echo '')"
     RERUN_ANY=false
     if [ -n "$FAILED_RUN_IDS" ]; then
-      declare -A SEEN_RUN_IDS=()
-      while IFS= read -r details_url; do
-        [ -z "$details_url" ] && continue
-        run_id="$(extract_run_id "$details_url")"
+      while IFS= read -r run_id; do
         [ -z "$run_id" ] && continue
-        [ -n "${SEEN_RUN_IDS[$run_id]:-}" ] && continue
-        SEEN_RUN_IDS[$run_id]=1
         log "  rerunning failed required check, run $run_id"
         RERUN_ANY=true
         if [ "$DRY_RUN" = false ]; then
