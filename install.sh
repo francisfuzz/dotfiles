@@ -28,6 +28,11 @@ fi
 # ~/.agents — whole directory is safe to symlink (no user runtime data lives here)
 symlink "$DOTFILES_DIR/.agents" "$HOME/.agents"
 
+# ~/.copilot — install personal instructions and agents without replacing runtime data
+mkdir -p "$HOME/.copilot"
+symlink "$DOTFILES_DIR/.agents/copilot-instructions.md" "$HOME/.copilot/copilot-instructions.md"
+symlink "$DOTFILES_DIR/.agents/agents"                 "$HOME/.copilot/agents"
+
 # ~/.claude — symlink individual subdirs only; the parent dir accumulates runtime
 # data (history, sessions, settings) that must not be replaced on a daily-use machine
 mkdir -p "$HOME/.claude"

@@ -4,11 +4,12 @@
 
 ## Directory Structure
 
-This repository uses a consolidated configuration approach with `.agents/` as the single source of truth, accessible to both Claude Code and GitHub Copilot CLI via symlinks.
+This repository uses `.agents/` as the single source of truth, exposed to Claude Code and GitHub Copilot CLI through their supported discovery paths.
 
 ### `.agents/` – Canonical Configuration
 
 - **agents/** – Subagent definitions for delegation (explore, librarian, metis, momus, oracle)
+- **copilot-instructions.md** – Personal operating principles installed for Copilot CLI
 - **skills/** – Reusable skills invoked via `/skill-name`:
   - `git-ops` – Atomic commits, interactive rebase, history search
   - `interview` – Discovery interviews with Socratic questioning
@@ -27,6 +28,8 @@ Previously active configuration that has been retired:
 | Symlink | Target | Purpose |
 |---------|--------|---------|
 | `CLAUDE.md` | `AGENTS.md` | Both tools read the same agent config |
+| `~/.copilot/copilot-instructions.md` | `.agents/copilot-instructions.md` | Personal Copilot CLI instructions |
+| `~/.copilot/agents` | `.agents/agents` | Copilot CLI custom agent discovery |
 | `.claude/agents` | `.agents/agents` | Claude Code subagent discovery |
 | `.claude/commands` | `archive/commands` | Legacy command compatibility |
 | `.claude/skills` | `.agents/skills` | Claude Code skill discovery |
