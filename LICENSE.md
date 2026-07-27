@@ -22,13 +22,11 @@ by code-yeongyu.
 - `.agents/agents/oracle.md`
 - `.agents/skills/git-ops/SKILL.md`
 - `.agents/skills/review-work/SKILL.md`
-- Orchestrator section of `AGENTS.md` (the "Orchestrator — AI Agent Behavior" section)
 
-**This software has been modified from its original form.** The original agent prompts, orchestration
-logic, and workflow patterns were adapted from Claude Code commands and agent definitions into
-tool-agnostic AGENTS.md configuration and Agent Skills format (SKILL.md). Claude-specific persona
-branding was removed, model specifications were kept in agent files, and naming was updated for
-inclusivity (e.g., `git-master` → `git-ops`).
+**This software has been modified from its original form.** The original agent prompts and workflow
+patterns were adapted from Claude Code commands and agent definitions into reusable agent definitions
+and Agent Skills format (SKILL.md). Claude-specific persona branding was removed, model specifications
+were kept in agent files, and naming was updated for inclusivity (e.g., `git-master` → `git-ops`).
 
 ## Sustainable Use License
 
