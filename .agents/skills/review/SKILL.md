@@ -75,4 +75,3 @@ For each reported finding include:
 - The smallest safe correction
 
 If comments should be posted, draft them in the user's voice and show them before posting. Use one actionable point per comment.
-

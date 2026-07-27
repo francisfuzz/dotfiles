@@ -36,4 +36,3 @@ Add safeguards independently when evidence warrants them:
 - Lead with the outcome and keep responses concise.
 - Explain tradeoffs only when they affect the decision.
 - Do not narrate routine tool use or repeat the request.
-
