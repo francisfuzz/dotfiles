@@ -33,44 +33,24 @@ Analyze the user's request to determine operation mode:
 
 ---
 
-## CORE PRINCIPLE: MULTIPLE COMMITS BY DEFAULT (NON-NEGOTIABLE)
+## CORE PRINCIPLE: LOGICAL, REVERSIBLE COMMITS
 
-**ONE COMMIT = AUTOMATIC FAILURE**
+Commit count follows the work's logical boundaries, not its file count.
 
-Your DEFAULT behavior is to CREATE MULTIPLE COMMITS.
-Single commit is a BUG in your logic, not a feature.
+Split changes when they:
 
-**HARD RULE:**
-```
-3+ files changed -> MUST be 2+ commits (NO EXCEPTIONS)
-5+ files changed -> MUST be 3+ commits (NO EXCEPTIONS)
-10+ files changed -> MUST be 5+ commits (NO EXCEPTIONS)
-```
+- Represent different user-visible or operational concerns
+- Can be reviewed, reverted, or shipped independently
+- Have a dependency order that is clearer as separate commits
+- Mix implementation with unrelated cleanup or documentation
 
-**If you're about to make 1 commit from multiple files, YOU ARE WRONG. STOP AND SPLIT.**
+Keep files together when they form one coherent unit, such as:
 
-**SPLIT BY:**
-| Criterion | Action |
-|-----------|--------|
-| Different directories/modules | SPLIT |
-| Different component types (model/service/view) | SPLIT |
-| Can be reverted independently | SPLIT |
-| Different concerns (UI/logic/config/test) | SPLIT |
-| New file vs modification | SPLIT |
+- An implementation and its direct tests
+- A configuration change and the documentation that explains it
+- A schema or interface change and the consumers required to keep the commit working
 
-**ONLY COMBINE when ALL of these are true:**
-- EXACT same atomic unit (e.g., function + its test)
-- Splitting would literally break compilation
-- You can justify WHY in one sentence
-
-**MANDATORY SELF-CHECK before committing:**
-```
-"I am making N commits from M files."
-IF N == 1 AND M > 2:
-  -> WRONG. Go back and split.
-  -> Write down WHY each file must be together.
-  -> If you can't justify, SPLIT.
-```
+Before committing, be able to explain each commit's purpose in one sentence and why reverting it would leave the branch in a valid state.
 
 ---
 
@@ -211,71 +191,22 @@ ELSE IF pushed but not merged:
 
 ---
 
-## PHASE 3: Atomic Unit Planning (BLOCKING - MUST OUTPUT BEFORE PROCEEDING)
+## PHASE 3: Logical Unit Planning (BLOCKING - MUST OUTPUT BEFORE PROCEEDING)
 
-### 3.0 Calculate Minimum Commit Count FIRST
+### 3.1 Identify independent concerns
 
-```
-FORMULA (must satisfy BOTH this AND the hard rules above):
-  min_commits = max(ceil(file_count / 3), hard_rule_minimum)
+Group files by the behavior or repository state they change. Directory boundaries are useful evidence, but they do not require a split when files jointly implement one concern.
 
-Hard rule minimums:
-  3+ files -> min 2 commits
-  5+ files -> min 3 commits
- 10+ files -> min 5 commits
+For each proposed commit, confirm:
 
-Examples (applying both):
-  3 files -> max(1, 2) = 2 commits
-  5 files -> max(2, 3) = 3 commits
-  9 files -> max(3, 3) = 3 commits
- 10 files -> max(4, 5) = 5 commits
- 15 files -> max(5, 5) = 5 commits
-```
+1. It has one concise purpose.
+2. Its files are necessary for that purpose.
+3. It can be reviewed and reverted independently.
+4. The repository remains valid after the commit.
 
-**If your planned commit count < min_commits -> WRONG. SPLIT MORE.**
+Pair implementation with direct tests when separating them would create an intentionally failing or incomplete commit.
 
-### 3.1 Split by Directory/Module FIRST (Primary Split)
-
-**RULE: Different directories = Different commits (almost always)**
-
-### 3.2 Split by Concern SECOND (Secondary Split)
-
-Within same directory, split by logical concern.
-
-### 3.3 Implementation + Test Pairing (MANDATORY)
-
-```
-RULE: Test files MUST be in same commit as implementation
-
-Test patterns to match:
-- test_*.py <-> *.py
-- *_test.py <-> *.py
-- *.test.ts <-> *.ts
-- *.spec.ts <-> *.ts
-- __tests__/*.ts <-> *.ts
-- tests/*.py <-> src/*.py
-```
-
-### 3.4 MANDATORY JUSTIFICATION (Before Creating Commit Plan)
-
-```
-FOR EACH planned commit with 3+ files:
-  1. List all files in this commit
-  2. Write ONE sentence explaining why they MUST be together
-  3. If you can't write that sentence -> SPLIT
-
-VALID reasons:
-  "implementation file + its direct test file"
-  "type definition + the only file that uses it"
-  "migration + model change (would break without both)"
-
-INVALID reasons (MUST SPLIT instead):
-  "all related to feature X" (too vague)
-  "part of the same PR" (not a reason)
-  "they were changed together" (not a reason)
-```
-
-### 3.5 Dependency Ordering
+### 3.2 Dependency ordering
 
 ```
 Level 0: Utilities, constants, type definitions
@@ -287,24 +218,24 @@ Level 4: Configuration, infrastructure
 COMMIT ORDER: Level 0 -> Level 1 -> Level 2 -> Level 3 -> Level 4
 ```
 
-### 3.6 MANDATORY OUTPUT (BLOCKING)
+### 3.3 MANDATORY OUTPUT (BLOCKING)
 
 ```
 COMMIT PLAN
 ===========
 Files changed: N
-Minimum commits required: max(ceil(N/3), hard_rule_minimum) = M
 Planned commits: K
-Status: K >= M (PASS) | K < M (FAIL - must split more)
 
 COMMIT 1: [message in detected style]
   - path/to/file1.py
   - path/to/file1_test.py
-  Justification: implementation + its test
+  Purpose: implementation and its direct behavioral coverage
+  Revert safety: removes the behavior and coverage together
 
 COMMIT 2: [message in detected style]
   - path/to/file2.py
-  Justification: independent utility function
+  Purpose: independent utility change
+  Revert safety: no later commit depends on it
 
 Execution order: Commit 1 -> Commit 2 -> ...
 ```
@@ -798,7 +729,8 @@ POTENTIAL ACTIONS:
 ## Anti-Patterns (ALL MODES)
 
 ### Commit Mode
-- One commit for many files -> SPLIT
+- Splitting by file count instead of logical concern -> Wrong history
+- Combining independently reversible concerns -> SPLIT
 - Default to semantic style -> DETECT first
 
 ### Rebase Mode
