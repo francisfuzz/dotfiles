@@ -17,11 +17,11 @@ by code-yeongyu.
 
 - `.agents/agents/explore.md`
 - `.agents/agents/librarian.md`
-- `.agents/agents/metis.md`
-- `.agents/agents/momus.md`
 - `.agents/agents/oracle.md`
 - `.agents/skills/git-ops/SKILL.md`
 - `.agents/skills/review-work/SKILL.md`
+- `archive/agents/metis.md`
+- `archive/agents/momus.md`
 
 **This software has been modified from its original form.** The original agent prompts and workflow
 patterns were adapted from Claude Code commands and agent definitions into reusable agent definitions

@@ -37,8 +37,6 @@ Always edit the canonical file under `.agents/`; never duplicate an active skill
 |---|---|
 | `explore` | Repository discovery and code search |
 | `librarian` | External documentation and implementation research |
-| `metis` | Pre-planning analysis |
-| `momus` | Formal plan executability review |
 | `oracle` | Architecture, debugging, and strategic consultation |
 | `forge` | Bounded implementation from an explicit Forge Spec |
 
@@ -96,4 +94,3 @@ When changing installation behavior, run `install.sh` with a temporary `HOME` an
 ## Security
 
 Local `.claude/` runtime data and `.env` files may contain sensitive information. They are not part of the canonical configuration and must not be committed or shared.
-

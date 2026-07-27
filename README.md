@@ -8,7 +8,7 @@ This repository uses `.agents/` as the single source of truth, exposed to Claude
 
 ### `.agents/` – Canonical Configuration
 
-- **agents/** – Subagent definitions for delegation (explore, librarian, metis, momus, oracle)
+- **agents/** – Focused subagent definitions for delegation (explore, librarian, oracle, forge)
 - **copilot-instructions.md** – Personal operating principles installed for Copilot CLI
 - **skills/** – Reusable skills invoked via `/skill-name`:
   - `git-ops` – Atomic commits, interactive rebase, history search
@@ -19,6 +19,7 @@ This repository uses `.agents/` as the single source of truth, exposed to Claude
 ### `archive/` – Archived Configuration
 
 Previously active configuration that has been retired:
+- **agents/** – Retired specialist definitions
 - **commands/** – Legacy Claude command templates
 - **prompts/** – Legacy prompt templates
 - **skills/** – Archived skill definitions (git-commit, pr-review-assist, etc.)
