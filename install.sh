@@ -32,6 +32,7 @@ symlink "$DOTFILES_DIR/.agents" "$HOME/.agents"
 mkdir -p "$HOME/.copilot"
 symlink "$DOTFILES_DIR/.agents/copilot-instructions.md" "$HOME/.copilot/copilot-instructions.md"
 symlink "$DOTFILES_DIR/.agents/agents"                 "$HOME/.copilot/agents"
+symlink "$DOTFILES_DIR/.agents/skills"                 "$HOME/.copilot/skills"
 
 # ~/.claude — symlink individual subdirs only; the parent dir accumulates runtime
 # data (history, sessions, settings) that must not be replaced on a daily-use machine

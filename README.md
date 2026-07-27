@@ -31,6 +31,7 @@ Previously active configuration that has been retired:
 | `CLAUDE.md` | `AGENTS.md` | Both tools read the same agent config |
 | `~/.copilot/copilot-instructions.md` | `.agents/copilot-instructions.md` | Personal Copilot CLI instructions |
 | `~/.copilot/agents` | `.agents/agents` | Copilot CLI custom agent discovery |
+| `~/.copilot/skills` | `.agents/skills` | Copilot CLI personal skill discovery |
 | `.claude/agents` | `.agents/agents` | Claude Code subagent discovery |
 | `.claude/commands` | `archive/commands` | Legacy command compatibility |
 | `.claude/skills` | `.agents/skills` | Claude Code skill discovery |

@@ -27,6 +27,7 @@ Compatibility paths expose that configuration to tools without duplicating it:
 - `~/.agents` -> this repository's `.agents`
 - `~/.copilot/copilot-instructions.md` -> `.agents/copilot-instructions.md`
 - `~/.copilot/agents` -> `.agents/agents`
+- `~/.copilot/skills` -> `.agents/skills`
 - selected Claude Code paths without replacing `~/.claude`
 
 Always edit the canonical file under `.agents/`; never duplicate an active skill or agent under a compatibility path.
