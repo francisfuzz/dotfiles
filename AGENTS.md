@@ -50,7 +50,6 @@ Agents are optional specialists. Delegate only when specialization, independent 
 | `git-ops` | Commit planning, rebases, and history investigation |
 | `interview` | Turn ambiguous ideas into a concrete specification |
 | `review` | Verification-first pull request review |
-| `review-work` | Comprehensive post-implementation review |
 | `transcript-to-artifact` | Convert transcripts into structured artifacts |
 
 Each skill lives in `.agents/skills/<name>/SKILL.md`. Supporting documentation belongs in `references/`, reusable files in `assets/`, and executable helpers in `scripts/`.

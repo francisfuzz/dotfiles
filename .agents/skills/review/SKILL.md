@@ -1,42 +1,78 @@
 ---
 name: review
-description: Review a PR (by link or from current context) or the current feature branch using a multi-model, verification-first workflow.
+description: Review a pull request or feature branch using one verification-first reviewer. Use for pre-merge correctness review when a specialist security or adversarial review is not more appropriate.
 argument-hint: [pr-url | pr-number | branch]
 ---
 
-## Code Review Workflow
+# Verification-first review
 
-When asked to review a PR (by link or from current context) or the current feature branch, follow this workflow automatically:
+Review `$ARGUMENTS`, or the current feature branch when no argument is supplied.
 
-### Multi-model review
+## Select one review path
 
-- Launch **at least 3 code review agents in parallel** using different available models to get diverse perspectives
-- Always display which models were used by each agent
-- Synthesize findings across all models - only surface issues that multiple models flag or that can be independently verified
-- Present a unified, deduplicated report organized by severity
+Use this skill as the default correctness review. Do not stack it with another general review workflow.
 
-### Verification standard
+Replace it with a more specific review when:
 
-- **Every finding must be verified before reporting it.** Do not report potential issues based on assumptions alone.
-- Verify by reading the actual source files, checking call sites, tracing data flow, or running tests/experiments
-- Clearly label findings with verification status: **Verified** (confirmed by reading code or testing), **Observation** (plausible but depends on context outside the diff), or **Unverified** (could not confirm - include reasoning)
-- When a finding involves runtime behavior, write or run a test to confirm it rather than speculating
+- The user explicitly requests an adversarial or independent second opinion.
+- The change crosses authentication, authorization, secrets, untrusted input, or another exploitable security boundary.
+- A repository-specific reviewer is better qualified for the affected subsystem.
 
-### What to focus on
+Run multiple independent reviewers only when the user requests it or the change has broad, difficult-to-observe regression risk.
 
-- **Correctness over style** - only report bugs, logic errors, security issues, race conditions, type mismatches, and missing edge cases. Do not flag style, formatting, naming conventions, or subjective preferences.
-- **Check whether the author has addressed existing review feedback** - read through all review threads and comments before reporting. Note unresolved threads.
-- **Check for unintended behavioral changes** - compare new code against the existing patterns in the same file or module
-- **Check docstring/comment accuracy** - verify that docstrings, comments, and commit messages accurately describe what the code actually does. Flag cases where stated behavior differs from implemented behavior.
+## Gather context
 
-### Tone and voice
+Before reviewing:
 
-- Use additive, curious framing - not corrective or prescriptive
-- For **first-time contributors**, lead with what was done well, be warm and specific about how to fix issues, and provide step-by-step guidance rather than terse criticism
-- For established contributors or teammates, be concise and direct
+1. Identify the base branch and changed files.
+2. Read the issue, pull request description, existing review threads, and stated acceptance criteria.
+3. Read the diff and only the surrounding code needed to understand changed behavior.
+4. Include explicit scope exclusions so descoped work is not reported as missing.
 
-### Drafting comments
+## Review
 
-- If findings warrant PR comments, draft them in my voice and **show me the draft before posting**
-- When specific code changes are needed, use GitHub suggestion blocks
-- One actionable point per comment - do not bundle multiple concerns
+Use one read-only code-review agent by default. The reviewer owns investigation and verification of its findings.
+
+Focus on:
+
+- Incorrect behavior and unmet requirements
+- Regressions and unintended public contract changes
+- Race conditions, unsafe state transitions, and resource leaks
+- Missing error handling that causes observable failure
+- Security vulnerabilities when no specialist security review is required
+- Tests that do not cover the changed behavior
+- Comments or documentation that contradict implementation
+
+Ignore style, naming preferences, formatting, and unrelated pre-existing problems.
+
+## Verification standard
+
+- Report only findings supported by the source, a call-site trace, an executable test, or another concrete artifact.
+- Verify runtime claims by running the smallest relevant test or reproduction when feasible.
+- Mark context-dependent claims as observations rather than blockers.
+- Do not ask the coordinator to repeat verification unless a finding is disputed or fixing it would change intended behavior.
+
+## Triage
+
+Classify findings as:
+
+- **Blocking**: A verified correctness, security, data-loss, or material regression issue that must be fixed before merge.
+- **Follow-up**: Verified but outside the pull request's required scope.
+- **Observation**: Useful context that is not sufficiently established to require a change.
+
+Fix blocking findings by logical concern, not one commit per comment. Track follow-up work separately rather than expanding the pull request.
+
+## Output
+
+Lead with the verdict: `APPROVE` or `CHANGES REQUESTED`.
+
+For each reported finding include:
+
+- Severity and verification status
+- File and line range
+- Why the behavior is incorrect
+- Evidence used to verify it
+- The smallest safe correction
+
+If comments should be posted, draft them in the user's voice and show them before posting. Use one actionable point per comment.
+

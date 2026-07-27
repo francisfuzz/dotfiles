@@ -13,7 +13,7 @@ This repository uses `.agents/` as the single source of truth, exposed to Claude
 - **skills/** – Reusable skills invoked via `/skill-name`:
   - `git-ops` – Atomic commits, interactive rebase, history search
   - `interview` – Discovery interviews with Socratic questioning
-  - `review-work` – Post-implementation review with parallel agents
+  - `review` – Verification-first pull request review
   - `transcript-to-artifact` – Meeting transcripts → structured artifacts
 
 ### `archive/` – Archived Configuration
